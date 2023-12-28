@@ -115,11 +115,6 @@ class Player:
     def draw_round_start(self, deck):
         self.hand = [deck.draw_card() for _ in range(5)]
 
-
-    def place_card(self, card_type, value): #to be implemented
-        pass
-
-    def get_player_action(self):
     def collect(self, line):
         self.already_collected = True
         # Determine the number of cards to collect
@@ -137,6 +132,13 @@ class Player:
         for card in collected_cards:
             print(card.display())
         print("\n")
+        print("Current Line:")
+        for card_in_line in line:
+            print(card_in_line.display())
+
+    def place_card(self, card, line):
+        # Add the chosen card to the end of the line
+        line.append(card)
         print("Current Line:")
         for card_in_line in line:
             print(card_in_line.display())
