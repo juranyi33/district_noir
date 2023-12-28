@@ -65,8 +65,7 @@ class Deck:
     def initialize_deck(self):
         # Add Support Cards
         for value in range(5, 9):  # Values 5 to 8
-            quantity = value - 1  # 5 cards of value 5, 6 cards of value 6, etc.
-            for _ in range(quantity):
+            for _ in range(value):
                 self.cards.append(Card(card_type='support', value=value))
 
         # Add Direct-Point Cards
