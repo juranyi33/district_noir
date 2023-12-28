@@ -115,13 +115,31 @@ class Player:
     def draw_round_start(self, deck):
         self.hand = [deck.draw_card() for _ in range(5)]
 
-    def collect(self):
-        pass
 
     def place_card(self, card_type, value): #to be implemented
         pass
 
     def get_player_action(self):
+    def collect(self, line):
+        self.already_collected = True
+        # Determine the number of cards to collect
+        num_cards_to_collect = min(5, len(line))
+
+        # Collect the last 'num_cards_to_collect' cards from the line
+        collected_cards = line[-num_cards_to_collect:]
+        self.stash.extend(collected_cards)
+
+        # Remove the collected cards from the line
+        del line[-num_cards_to_collect:]
+
+        # Print information about the collection
+        print(f"Player {self.id} collected the following cards:")
+        for card in collected_cards:
+            print(card.display())
+        print("\n")
+        print("Current Line:")
+        for card_in_line in line:
+            print(card_in_line.display())
         while True:
             action = input(f"Player {self.id}, choose an action (place or collect): ")
             if action == "place":
