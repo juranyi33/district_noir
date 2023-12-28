@@ -11,7 +11,7 @@ district_noir.setup_game()
 while True:
     for round_number in range(1, district_noir.num_of_rounds + 1):
         print(f"Round {round_number} starts.")
-
+        print("\n")
         # Ensure hands are empty and draw new hands at round start
         for player in players:
             if len(player.hand) > 0:  # Error could be initialized
@@ -21,6 +21,10 @@ while True:
             # Reset actions for each player at the start of the round
             player.actions_left = 6
             player.already_collected = False
+            player.display_cards()
+        print(f"The line consists of:")
+        for card_in_line in district_noir.line:
+            print(card_in_line.display())
 
         # Time for actions!
         while any(player.actions_left > 0 for player in players):
@@ -38,15 +42,9 @@ while True:
             if city_card_victory:
                 break
         print(f"Round {round_number} ends.")
+        print("\n")
 
         district_noir.round += 1
-        # Check for immediate game-over condition (3 city cards)
-        # Maybe this could be inside a round and not out-side. Why
-        # would the players make all their 6 actions if
-        city_card_victory, city_win_player = district_noir.has_city_card_victory(players)
-        if city_card_victory:
-            print(f"Game over! {city_win_player.name} wins with 3 city cards!")
-            break
 
     if district_noir.is_all_rounds_completed():
         # Calculate scores for each player

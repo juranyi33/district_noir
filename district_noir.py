@@ -103,14 +103,18 @@ class Player:
             print(f"player{self.id}'s hand: ")
             for card in self.hand:
                 print(card.display())
+            print("\n")
         else:
             print(f"player{self.id}'s hand is empty")
+            print("\n")
         if len(self.stash) > 0:
             print(f"player{self.id}'s stash: ")
             for card in self.stash:
                 print(card.display())
+            print("\n")
         else:
             print(f"player{self.id}'s stash is empty")
+            print("\n")
 
     def draw_round_start(self, deck):
         self.hand = [deck.draw_card() for _ in range(5)]
