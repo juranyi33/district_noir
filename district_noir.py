@@ -90,11 +90,12 @@ class Deck:
 
 
 class Player:
-    def __init__(self, id, hand=[], stash=[], points=0):
+    def __init__(self, id, points=0):
         self.id = id
-        self.hand = hand
-        self.stash = stash
+        self.hand = []
+        self.stash = []
         self.actions_left = 6
+        self.already_collected = False
         self.points = points
 
     def display_cards(self):
