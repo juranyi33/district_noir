@@ -20,6 +20,7 @@ while True:
             player.draw_round_start(deck)
             # Reset actions for each player at the start of the round
             player.actions_left = 6
+            player.already_collected = False
 
         # Time for actions!
         while any(player.actions_left > 0 for player in players):
