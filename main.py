@@ -27,9 +27,14 @@ while True:
                     # Implement logic for player to choose and perform an action
                     # For example, player.place_card() or player.collect()
                     # Decrease the action count after each action
-                    action = int(input(f"{player}:")) #either be "
-                    player.actions_left -= 1
-
+                    player.get_player_action(district_noir)  # either be a collect or a placing"
+                    city_card_victory, city_win_player = district_noir.has_city_card_victory(players)
+                    # Check for immediate game-over condition (3 city cards)
+                    if city_card_victory:
+                        print(f"Game over!Player {city_win_player.id} wins with 3 city cards!")
+                        break
+            if city_card_victory:
+                break
         print(f"Round {round_number} ends.")
 
         district_noir.round += 1

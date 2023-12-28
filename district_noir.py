@@ -142,18 +142,49 @@ class Player:
         print("Current Line:")
         for card_in_line in line:
             print(card_in_line.display())
+
+    def get_player_action(self, district_noir):
+        self.actions_left -= 1
         while True:
-            action = input(f"Player {self.id}, choose an action (place or collect): ")
-            if action == "place":
-                # Implement logic to choose which card to place
-                card_to_place = ...
-                self.place_card(card_to_place)
-                break
-            elif action == "collect":
-                self.collect()
+            if (len(self.hand) == 0) & (not self.already_collected):
+                print("Had no choice, but to collect")
+                self.collect(district_noir.line)  # For a reason, the cards went to both players stashes
                 break
             else:
-                print("Invalid action. Please choose 'place' or 'collect'.")
+                action = input(f"Player {self.id} to choose an action:")
+                if action == "place":
+                    # Implement logic to choose which card to place
+                    for index, card in enumerate(self.hand):
+                        print(f"{index}: {card.display()}")
+
+                    # Get the player's choice
+                    card_index = input(f"Player {self.id}, select a card to place by index: ")
+                    try:
+                        card_index = int(card_index)
+                        if 0 <= card_index < len(self.hand):
+                            card_to_place = self.hand.pop(card_index)
+                            self.place_card(card_to_place, district_noir.line)
+                            break
+                        else:
+                            print("Invalid index. Please try again.")
+                            continue
+                    except ValueError:
+                        print("Please enter a valid number.")
+                        continue
+                    self.place_card(card_to_place, district_noir.line)
+                    break
+                elif action == "collect":
+                    if self.already_collected:
+                        print(f"Player {self.id} has already collected in this round")
+                    else:
+                        if len(district_noir.line)==0:
+                            print(f"The line has no cards, you have to place")
+                        else:
+                            self.collect(district_noir.line)
+                            break
+                else:
+                    print("Invalid action. Please choose 'place' or 'collect'.")
+                    continue
 
     def calculate_support_card_score(self, opponent):
         score = 0
