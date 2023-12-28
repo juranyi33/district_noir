@@ -14,8 +14,9 @@ while True:
 
         # Ensure hands are empty and draw new hands at round start
         for player in players:
-            if player.hand != []:
-                print("Hand must be empty at this point")
+            if len(player.hand) > 0:  # Error could be initialized
+                print(f"Warning: Player {player.id}'s hand should be empty. Resetting hand.")
+                player.hand = []
             player.draw_round_start(deck)
             # Reset actions for each player at the start of the round
             player.actions_left = 6
